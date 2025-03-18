@@ -1,0 +1,18 @@
+/* ✅ Make sure Sidebar is Full Height */
+.sidebar {
+    height: 100vh;
+}
+
+/* ✅ Fix Footer to Bottom Without Adding Scroll */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* ✅ Ensure Main Content Area Scrolls But Doesn't Overflow */
+.flex-grow-1.overflow-auto {
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+    /* Adjust for header/footer height */
+}

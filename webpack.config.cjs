@@ -6,10 +6,13 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath: "/", // ✅ Ensures Webpack serves files from the root
   },
   mode: "development",
   devServer: {
-    static: path.join(__dirname, "dist"),
+    static: {
+      directory: path.join(__dirname, "public"), // ✅ Serves static files from public/
+    },
     port: 3000,
     historyApiFallback: true,
   },
@@ -27,8 +30,12 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.svg$/, // ✅ Add this rule
-        use: ["@svgr/webpack"], // Converts SVGs into React components
+        test: /\.(png|jpe?g|gif)$/i, // ✅ Add this rule for images
+        type: "asset/resource",
+      },
+      {
+        test: /\.svg$/, // ✅ Handles SVGs separately
+        use: ["@svgr/webpack"],
       },
     ],
   },

@@ -1,0 +1,231 @@
+/* ✅ Active Tab Styling */
+.active-tab {
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* ✅ Hover Effect */
+.nav-link:hover {
+    background-color: #d9d9d9 !important;
+    border-radius: 5px;
+}
+
+/* ✅ Click Animation */
+.nav-link:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* ✅ Rotating Logo Animation */
+.rotate-animation {
+    animation: rotateLogo 4s linear infinite;
+}
+
+@keyframes rotateLogo {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ✅ Synchronization Icon Animation */
+.sync-animation {
+    animation: syncRotate 2s linear infinite;
+}
+
+@keyframes syncRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* ✅ Rotate Logo & Icon (For Synchronization) */
+@keyframes rotateLogo {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate-animation {
+    animation: rotateLogo 2s linear;
+}
+
+/* ✅ Flash Effect (For Logs - Reload Effect) */
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.flash-animation {
+    animation: flash 2s ease-in-out;
+}
+
+/* ✅ Shake Effect (For User Settings - Vibration Feel) */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.shake-animation {
+    animation: shake 2s ease-in-out;
+}
+
+/* ✅ Color Flash Effect (For Admin - Security Warning Feel) */
+@keyframes colorFlash {
+    0% {
+        color: red;
+    }
+
+    50% {
+        color: orange;
+    }
+
+    100% {
+        color: red;
+    }
+}
+
+.color-flash-animation {
+    animation: colorFlash 2s ease-in-out;
+}
+
+
+
+/* ✅ Active Tab */
+.active-tab {
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* ✅ Hover Effect */
+.nav-link:hover {
+    background-color: #d9d9d9 !important;
+    border-radius: 5px;
+}
+
+/* ✅ Click Animation */
+.nav-link:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* ✅ Rotating Logo & Icons (For Synchronization) */
+@keyframes rotateLogo {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate-animation {
+    animation: rotateLogo 2s linear;
+}
+
+/* ✅ Flash Effect (For Logs - Reload Effect) */
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.flash-animation {
+    animation: flash 2s ease-in-out;
+}
+
+/* ✅ Shake Effect (For User Settings - Vibration Feel) */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.shake-animation {
+    animation: shake 2s ease-in-out;
+}
+
+/* ✅ Color Flash Effect (For Admin - Security Warning Feel) */
+@keyframes colorFlash {
+    0% {
+        color: red;
+    }
+
+    50% {
+        color: orange;
+    }
+
+    100% {
+        color: red;
+    }
+}
+
+.color-flash-animation {
+    animation: colorFlash 2s ease-in-out;
+}

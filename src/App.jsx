@@ -1,32 +1,56 @@
-import React, { useState } from "react";
-import { ReactComponent as ReactLogo } from './assets/react.svg';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/Login";
+import SyncStatusPage from "./pages/SyncStatusPaage";
+import ProfilePage from "./pages/ProfilePage";
+import NotificationsPage from "./pages/NotificationsPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import SecuritySettingsPage from "./pages/SecuritySettingsPage";
+import ManageUsersPage from "./pages/ManageUsersPage";
+import AddUsersPage from "./pages/AddUsersPage";
+import UpdateDeleteUsersPage from "./pages/UpdateDeleteUsersPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage"; // ✅ Import ForgotPasswordPage
+import Dashboard from "./pages/DashboardPage";
+import Synchronization from "./pages/Synchronization";
+import SyncLogs from "./pages/SyncLogs.js";
+import UserSettings from "./pages/UserSettings";
+import Admin from "./pages/Admin";
 
-import "./App.css";
-
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-        {/* <ReactLogo className="logo react" />; */}
-        </a>
+    <Router>
+      <div className="d-flex flex-column min-vh-100 w-100">
+        <div className="flex-grow-1">
+          {/* Define routes for each page */}
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/sync-status" element={<SyncStatusPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
+            <Route
+              path="/security-settings"
+              element={<SecuritySettingsPage />}
+            />
+            <Route path="/manage-users" element={<ManageUsersPage />} />
+            <Route path="/add-users" element={<AddUsersPage />} />
+            <Route
+              path="/update-delete-users"
+              element={<UpdateDeleteUsersPage />}
+            />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />{" "}
+            {/* ✅ New Route */}
+            <Route path="/synchronization" element={<Synchronization />} />
+            <Route path="/sync-logs" element={<SyncLogs />} />
+            <Route path="/user-settings" element={<UserSettings />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
+        </div>
       </div>
-      <h1>React + Webpack</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test hot reload
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the React logo to learn more
-      </p>
-    </>
+    </Router>
   );
-}
+};
 
 export default App;

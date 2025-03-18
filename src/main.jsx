@@ -1,6 +1,23 @@
+// src/index.js or src/main.jsx
 import React from "react";
-import ReactDOM from "react-dom/client"; // ✅ Use `react-dom/client`
-import App from "./App";
+import { createRoot } from "react-dom/client"; // Import createRoot from react-dom/client
+import { Provider } from "react-redux"; // Import the Redux Provider
+import { store } from "./redux/store"; // Import the Redux store
+import App from "./App"; // Import the App component
+import "./main.css"; // Import CSS file here
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root")); // ✅ New API
-root.render(<App />);
+// Get the root element from your HTML file
+const container = document.getElementById("root");
+
+// Create a root using createRoot
+const root = createRoot(container);
+
+// Render the App component wrapped in the Redux Provider
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
