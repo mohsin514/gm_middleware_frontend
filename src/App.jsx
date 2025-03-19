@@ -13,7 +13,6 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"; // ✅ Import Forgo
 import Dashboard from "./pages/DashboardPage";
 import Synchronization from "./pages/Synchronization";
 import SyncLogs from "./pages/SyncLogs.js";
-import UserSettings from "./pages/UserSettings";
 import Admin from "./pages/Admin";
 
 const App = () => {
@@ -44,7 +43,6 @@ const App = () => {
             {/* ✅ New Route */}
             <Route path="/synchronization" element={<Synchronization />} />
             <Route path="/sync-logs" element={<SyncLogs />} />
-            <Route path="/user-settings" element={<UserSettings />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>

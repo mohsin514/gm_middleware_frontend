@@ -23,19 +23,20 @@ const Admin = () => {
     email: "",
     role: "View Only User",
   });
+
   const [editing, setEditing] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Email Validation Function
+  // ✅ Email Validation Function
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  // Handle Input Changes
+  // ✅ Handle Input Changes
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  // Handle Form Submit
+  // ✅ Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!userData.firstName.trim() || !userData.lastName.trim()) {
@@ -57,14 +58,14 @@ const Admin = () => {
     resetForm();
   };
 
-  // Edit User
+  // ✅ Handle Edit User
   const handleEdit = (user) => {
     setUserData(user);
     setEditing(true);
     setShowForm(true);
   };
 
-  // Reset Form
+  // ✅ Reset Form
   const resetForm = () => {
     setUserData({
       id: "",
@@ -77,11 +78,11 @@ const Admin = () => {
     setShowForm(false);
   };
 
-  // Confirm Delete User
+  // ✅ Confirm Delete User (Custom Alert)
   const handleDelete = (id) => {
     toast.error(
       <div className="text-center">
-        <p className="fw-bold">Are you sure you want to delete?</p>
+        <p className="fw-bold mb-3">Are you sure you want to delete?</p>
         <div className="d-flex justify-content-center gap-3">
           <button
             className="btn btn-danger btn-sm rounded-3 px-4"
@@ -112,19 +113,22 @@ const Admin = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container-fluid mt-4 px-5">
       <ToastContainer position="top-right" />
 
-      <h2 className="fw-bold text-center">
+      {/* ✅ Page Title */}
+      <h2 className="fw-bold">
         <FaUserShield className="me-2" /> Admin Panel - User Management
       </h2>
 
-      {/* Search Bar */}
+      <hr className="border-2 border-dark mt-1" />
+
+      {/* ✅ Search Bar */}
       {!showForm && (
         <div className="d-flex justify-content-end my-3">
           <div className="input-group w-50">
-            <span className="input-group-text">
-              <FaSearch />
+            <span className="input-group-text bg-light">
+              <FaSearch className="text-secondary" />
             </span>
             <input
               type="text"
@@ -137,60 +141,62 @@ const Admin = () => {
         </div>
       )}
 
-      {/* User List Table */}
+      {/* ✅ User List Table */}
       {!showForm && (
         <>
-          <table className="table table-striped mt-2">
-            <thead className="table-dark">
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email Address</th>
-                <th>Role</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.length > 0 ? (
-                users
-                  .filter((user) =>
-                    user?.email
-                      ?.toLowerCase()
-                      .includes(searchQuery.toLowerCase())
-                  )
-                  .map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.firstName}</td>
-                      <td>{user.lastName}</td>
-                      <td>{user.email}</td>
-                      <td>{user.role}</td>
-                      <td>
-                        <button
-                          className="btn btn-primary me-2"
-                          onClick={() => handleEdit(user)}
-                        >
-                          <FaEdit />
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => handleDelete(user.id)}
-                        >
-                          <FaTrash />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-              ) : (
+          <div className="table-responsive">
+            <table className="table table-hover shadow-sm">
+              <thead className="table-primary">
                 <tr>
-                  <td colSpan="5" className="text-center text-muted">
-                    No users found. Add users to get started.
-                  </td>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email Address</th>
+                  <th>Role</th>
+                  <th>Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.length > 0 ? (
+                  users
+                    .filter((user) =>
+                      user?.email
+                        ?.toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    )
+                    .map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.firstName}</td>
+                        <td>{user.lastName}</td>
+                        <td>{user.email}</td>
+                        <td>{user.role}</td>
+                        <td>
+                          <button
+                            className="btn btn-outline-primary btn-sm me-2"
+                            onClick={() => handleEdit(user)}
+                          >
+                            <FaEdit />
+                          </button>
+                          <button
+                            className="btn btn-outline-danger btn-sm"
+                            onClick={() => handleDelete(user.id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center text-muted">
+                      No users found. Add users to get started.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
 
-          {/* Add New User Button (Placed Under Table) */}
+          {/* ✅ Add New User Button (Under Table) */}
           <div className="d-flex justify-content-end mt-3">
             <button
               className="btn btn-success"
@@ -202,40 +208,42 @@ const Admin = () => {
         </>
       )}
 
-      {/* Form to Add / Update User */}
+      {/* ✅ User Form (Full Width) */}
       {showForm && (
-        <div className="d-flex justify-content-center">
-          <form
-            onSubmit={handleSubmit}
-            className="card p-4 shadow mt-3"
-            style={{ maxWidth: "400px", width: "100%" }}
-          >
-            <div className="mb-3">
-              <label className="form-label">First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                className="form-control"
-                value={userData.firstName}
-                onChange={handleChange}
-                required
-              />
+        <div className="mt-4">
+          <h5 className="fw-bold">{editing ? "Edit User" : "Add New User"}</h5>
+
+          <hr className="border-dark" />
+
+          <form onSubmit={handleSubmit} className="w-100">
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label className="form-label fw-bold">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  className="form-control"
+                  value={userData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <label className="form-label fw-bold">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  className="form-control"
+                  value={userData.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                className="form-control"
-                value={userData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Email Address</label>
+              <label className="form-label fw-bold">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -247,7 +255,7 @@ const Admin = () => {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Role</label>
+              <label className="form-label fw-bold">Role</label>
               <select
                 name="role"
                 className="form-select"
@@ -262,8 +270,11 @@ const Admin = () => {
               </select>
             </div>
 
-            <div className="d-flex justify-content-between">
-              <button type="submit" className="btn btn-success">
+            <hr className="border-secondary mt-5" />
+
+            {/* ✅ Buttons */}
+            <div className="d-flex justify-content-end">
+              <button type="submit" className="btn btn-success me-2">
                 {editing ? "Update User" : "Add User"}
               </button>
               <button

@@ -3,9 +3,12 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Synchronization from "./Synchronization";
 import SyncLogs from "./SyncLogs.js";
-import UserSettings from "./UserSettings";
 import Admin from "./Admin";
 import Footer from "../components/Footer.js";
+import Profile from "./ProfilePage.jsx";
+import Notifications from "./NotificationsPage";
+import ChangePassword from "./ChangePasswordPage";
+import SecuritySettings from "./SecuritySettingsPage";
 
 const Dashboard = () => {
   const loggedInUser = "John Doe";
@@ -13,7 +16,6 @@ const Dashboard = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* ✅ Main Content Wrapper (Fills Remaining Space) */}
       <div className="d-flex flex-grow-1 overflow-hidden">
         {/* Sidebar (Fixed Full Height) */}
         <Sidebar setSelectedComponent={setSelectedComponent} />
@@ -33,14 +35,14 @@ const Dashboard = () => {
             )}
             {selectedComponent === "synchronization" && <Synchronization />}
             {selectedComponent === "syncLogs" && <SyncLogs />}
-            {selectedComponent === "userSettings" && <UserSettings />}
+            {selectedComponent === "profile" && <Profile />}
+            {selectedComponent === "notifications" && <Notifications />}
+            {selectedComponent === "changePassword" && <ChangePassword />}
+            {selectedComponent === "securitySettings" && <SecuritySettings />}
             {selectedComponent === "admin" && <Admin />}
           </div>
         </div>
       </div>
-
-      {/* ✅ Footer (Always at Bottom) */}
-      <Footer />
     </div>
   );
 };
