@@ -8,6 +8,7 @@ import {
   FaTimesCircle,
   FaRedo,
 } from "react-icons/fa";
+import "./SyncLogs.css"; // ✅ Custom Styling
 
 const SyncLogs = () => {
   const [logs, setLogs] = useState([]);
@@ -17,71 +18,21 @@ const SyncLogs = () => {
   const [loading, setLoading] = useState(false);
   const logsPerPage = 5;
 
-  // Dummy Data for Logs (Simulating API Fetch)
+  // ✅ Fetch Logs (Simulating API Fetch)
   const fetchLogs = () => {
     setLoading(true);
     setTimeout(() => {
       setLogs([
-        {
-          id: 1,
-          process: "Sync Users",
-          status: "Completed",
-          time: "2024-03-18 12:30",
-        },
-        {
-          id: 2,
-          process: "Sync Orders",
-          status: "Failed",
-          time: "2024-03-18 12:45",
-        },
+        { id: 1, process: "Sync Users", status: "Completed", time: "12:30" },
+        { id: 2, process: "Sync Orders", status: "Failed", time: "12:45" },
         {
           id: 3,
           process: "Sync Inventory",
           status: "Completed",
-          time: "2024-03-18 13:00",
+          time: "13:00",
         },
-        {
-          id: 4,
-          process: "Sync Payments",
-          status: "Pending",
-          time: "2024-03-18 13:15",
-        },
-        {
-          id: 5,
-          process: "Sync Reports",
-          status: "Completed",
-          time: "2024-03-18 13:30",
-        },
-        {
-          id: 6,
-          process: "Sync Users",
-          status: "Pending",
-          time: "2024-03-18 14:00",
-        },
-        {
-          id: 7,
-          process: "Sync Orders",
-          status: "Completed",
-          time: "2024-03-18 14:15",
-        },
-        {
-          id: 8,
-          process: "Sync Inventory",
-          status: "Failed",
-          time: "2024-03-18 14:30",
-        },
-        {
-          id: 9,
-          process: "Sync Payments",
-          status: "Completed",
-          time: "2024-03-18 15:00",
-        },
-        {
-          id: 10,
-          process: "Sync Reports",
-          status: "Failed",
-          time: "2024-03-18 15:15",
-        },
+        { id: 4, process: "Sync Payments", status: "Pending", time: "13:15" },
+        { id: 5, process: "Sync Reports", status: "Completed", time: "13:30" },
       ]);
       setLoading(false);
     }, 2000);
@@ -92,25 +43,28 @@ const SyncLogs = () => {
     fetchLogs();
   }, []);
 
-  // Filter & Search Logic
+  // ✅ Filter & Search Logic
   const filteredLogs = logs.filter(
     (log) =>
       log.process.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (statusFilter === "" || log.status === statusFilter)
   );
 
-  // Pagination Logic
+  // ✅ Pagination Logic
   const indexOfLastLog = currentPage * logsPerPage;
   const indexOfFirstLog = indexOfLastLog - logsPerPage;
   const currentLogs = filteredLogs.slice(indexOfFirstLog, indexOfLastLog);
 
-  // Change Page
+  // ✅ Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="w-100 h-100 p-4 shadow bg-white">
       <h3 className="fw-bold d-flex align-items-center">
-        <FaSync className="me-2 sync-animation" /> Synchronization Logs
+        <FaSync
+          className={`me-2 text-primary ${loading ? "sync-animation" : ""}`}
+        />{" "}
+        Synchronization Logs
       </h3>
       <p className="text-muted">
         View logs of recent synchronization processes.
@@ -143,8 +97,10 @@ const SyncLogs = () => {
           <option value="Failed">Failed</option>
         </Form.Select>
 
-        <Button variant="primary" onClick={fetchLogs}>
-          <FaRedo className="me-2" /> Reload Logs
+        {/* ✅ Reload Button with Rotation Animation */}
+        <Button variant="primary" onClick={fetchLogs} disabled={loading}>
+          <FaRedo className={`me-2 ${loading ? "sync-animation" : ""}`} />
+          {loading ? "Reloading..." : "Reload Logs"}
         </Button>
       </div>
 

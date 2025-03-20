@@ -1,37 +1,39 @@
-// src/redux/syncSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  steps: [
-    { id: 1, type: 'Unavailable Codes', status: 'Complete', date: '03/11/2025', time: '00:08:53' },
-    { id: 2, type: 'Groups', status: 'Complete', date: '03/11/2025', time: '00:08:54' },
-    { id: 3, type: 'Teams', status: 'Complete', date: '03/11/2025', time: '00:08:55' },
-    { id: 4, type: 'Campaigns', status: 'Complete', date: '03/11/2025', time: '00:08:56' },
-    { id: 5, type: 'Dispositions', status: 'Complete', date: '03/11/2025', time: '00:08:57' },
-    { id: 6, type: 'Hours of Operation', status: 'Complete', date: '03/11/2025', time: '00:08:58' },
-    { id: 7, type: 'Users', status: 'Complete', date: '03/11/2025', time: '00:08:59' },
-    { id: 8, type: 'Routing', status: 'Complete', date: '03/11/2025', time: '00:09:01' },
-    { id: 9, type: 'Skills and Proficiency', status: 'Complete', date: '03/11/2025', time: '00:09:02' },
-    { id: 10, type: 'Workflow Data', status: 'Complete', date: '03/11/2025', time: '00:09:03' },
-    { id: 11, type: 'Address Books', status: 'Executing', date: '03/11/2025', time: '00:09:04' },
-    { id: 12, type: 'Scripts', status: 'Queued', date: '03/11/2025', time: '00:09:05' },
-    { id: 13, type: 'Points of Contact', status: 'Failed', date: '03/11/2025', time: '00:09:06' },
+  jobs: [
+    { id: 1, name: "Unavailable Codes", status: "Pending" },
+    { id: 2, name: "Groups", status: "Pending" },
+    { id: 3, name: "Teams", status: "Pending" },
+    { id: 4, name: "Compaigns", status: "Pending" },
+    { id: 5, name: "Dispositions", status: "Pending" },
+    { id: 6, name: "Hours of Operation", status: "Pending" },
+    { id: 7, name: "Users", status: "Pending" },
+    { id: 8, name: "Routing Attributes", status: "Pending" },
+    { id: 9, name: "Skills and Proficiency", status: "Pending" },
+    { id: 10, name: "Workflow Data", status: "Pending" },
+    { id: 11, name: "Address Books", status: "Pending" },
+    { id: 12, name: "Scripts", status: "Pending" },
+    { id: 13, name: "Point Of Contact", status: "Pending" },
   ],
+  lastSyncTime: null,
 };
 
 const syncSlice = createSlice({
-  name: 'sync',
+  name: "sync",
   initialState,
   reducers: {
-    updateStepStatus: (state, action) => {
-      const { id, status } = action.payload;
-      const step = state.steps.find((step) => step.id === id);
-      if (step) {
-        step.status = status;
-      }
+    startJob: (state, action) => {
+      const job = state.jobs.find((job) => job.id === action.payload);
+      if (job) job.status = "In Progress";
+    },
+    completeJob: (state, action) => {
+      const job = state.jobs.find((job) => job.id === action.payload);
+      if (job) job.status = "Completed";
+      state.lastSyncTime = new Date().toLocaleString();
     },
   },
 });
 
-export const { updateStepStatus } = syncSlice.actions;
+export const { startJob, completeJob } = syncSlice.actions;
 export default syncSlice.reducer;
