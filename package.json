@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/mohsin514/gm_middleware_frontend.git",
+  "homepage": "https://mohsin514.github.io/gm_middleware_frontend",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

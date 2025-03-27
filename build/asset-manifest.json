@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/mohsin514/gm_middleware_frontend.git/static/css/main.6d3998d8.css",
-    "main.js": "/mohsin514/gm_middleware_frontend.git/static/js/main.af1eb43f.js",
-    "index.html": "/mohsin514/gm_middleware_frontend.git/index.html",
-    "main.6d3998d8.css.map": "/mohsin514/gm_middleware_frontend.git/static/css/main.6d3998d8.css.map",
-    "main.af1eb43f.js.map": "/mohsin514/gm_middleware_frontend.git/static/js/main.af1eb43f.js.map"
+    "main.css": "/gm_middleware_frontend/static/css/main.6d3998d8.css",
+    "main.js": "/gm_middleware_frontend/static/js/main.af1eb43f.js",
+    "index.html": "/gm_middleware_frontend/index.html",
+    "main.6d3998d8.css.map": "/gm_middleware_frontend/static/css/main.6d3998d8.css.map",
+    "main.af1eb43f.js.map": "/gm_middleware_frontend/static/js/main.af1eb43f.js.map"
   },
   "entrypoints": [
     "static/css/main.6d3998d8.css",
