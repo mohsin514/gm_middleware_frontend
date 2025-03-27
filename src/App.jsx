@@ -13,6 +13,7 @@ import Dashboard from "./pages/DashboardPage";
 import Synchronization from "./pages/Synchronization";
 import SyncLogs from "./pages/SyncLogs.js";
 import Admin from "./pages/Admin";
+import NiceCxoneSettingForm from "./pages/NiceCxoneSettingPage"; // ✅ Import NiceCxoneSettingForm
 
 const App = () => {
   return (
@@ -42,6 +43,10 @@ const App = () => {
             <Route path="/synchronization" element={<Synchronization />} />
             <Route path="/sync-logs" element={<SyncLogs />} />
             <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/NiceCxoneSettingForm"
+              element={<NiceCxoneSettingForm />}
+            />
           </Routes>
         </div>
       </div>

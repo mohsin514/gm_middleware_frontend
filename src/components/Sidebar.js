@@ -9,6 +9,7 @@ import {
   FaShieldAlt,
   FaChevronDown,
   FaChevronUp,
+  FaCogs,
 } from "react-icons/fa";
 import "./Sidebar.css"; // ✅ Import Sidebar CSS
 
@@ -24,6 +25,7 @@ const Sidebar = ({ setSelectedComponent }) => {
   const [isPasswordShaking, setIsPasswordShaking] = useState(false);
   const [isSecurityFlashing, setIsSecurityFlashing] = useState(false);
   const [isAdminFlashing, setIsAdminFlashing] = useState(false);
+  const [isNiceCxoneFlashing, setIsNiceCxoneFlashing] = useState(false); // ✅ Added State
 
   // ✅ Handle Navigation Clicks
   const handleNavClick = (section) => {
@@ -51,6 +53,10 @@ const Sidebar = ({ setSelectedComponent }) => {
     } else if (section === "admin") {
       setIsAdminFlashing(true);
       setTimeout(() => setIsAdminFlashing(false), 2000);
+    } else if (section === "niceCxoneSetting") {
+      // ✅ Animation Fix for NICE Cxone
+      setIsNiceCxoneFlashing(true);
+      setTimeout(() => setIsNiceCxoneFlashing(false), 2000);
     }
   };
 
@@ -165,7 +171,18 @@ const Sidebar = ({ setSelectedComponent }) => {
             </Nav.Link>
           </div>
         )}
-
+        {/* ✅ NICE Cxone Setting Section (Fixed) */}
+        <Nav.Link
+          className={`text-dark ${
+            activeTab === "niceCxoneSetting" ? "active-tab" : ""
+          }`}
+          onClick={() => handleNavClick("niceCxoneSetting")}
+        >
+          <FaCogs
+            className={`me-2 ${isNiceCxoneFlashing ? "flash-animation" : ""}`}
+          />
+          NICE Cxone Setting
+        </Nav.Link>
         {/* ✅ Admin Section */}
         <Nav.Link
           className={`text-dark ${activeTab === "admin" ? "active-tab" : ""}`}

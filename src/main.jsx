@@ -4,7 +4,8 @@ import { createRoot } from "react-dom/client"; // Import createRoot from react-d
 import { Provider } from "react-redux"; // Import the Redux Provider
 import { store } from "./redux/store"; // Import the Redux store
 import App from "./App"; // Import the App component
-import "./main.css"; // Import CSS file here
+import "./main.css"; // ✅ Correct way to include CSS in React
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Get the root element from your HTML file

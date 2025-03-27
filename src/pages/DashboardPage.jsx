@@ -9,6 +9,7 @@ import Profile from "./ProfilePage.jsx";
 import Notifications from "./NotificationsPage";
 import ChangePassword from "./ChangePasswordPage";
 import SecuritySettings from "./SecuritySettingsPage";
+import NiceCxoneSettingForm from "./NiceCxoneSettingPage";
 
 const Dashboard = () => {
   const loggedInUser = "John Doe";
@@ -40,6 +41,9 @@ const Dashboard = () => {
             {selectedComponent === "changePassword" && <ChangePassword />}
             {selectedComponent === "securitySettings" && <SecuritySettings />}
             {selectedComponent === "admin" && <Admin />}
+            {selectedComponent === "niceCxoneSetting" && (
+              <NiceCxoneSettingForm />
+            )}
           </div>
         </div>
       </div>

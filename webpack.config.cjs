@@ -6,8 +6,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    publicPath: "/", // ✅ Ensures Webpack serves files from the root
+    publicPath: "", // ✅ Change from "/" to ""
   },
+
   mode: "development",
   devServer: {
     static: {
