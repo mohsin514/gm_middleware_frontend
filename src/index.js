@@ -7,6 +7,7 @@ import App from "./App.jsx"; // Import the App component
 import "./main.css"; // ✅ Correct way to include CSS in React
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
 
 // Get the root element from your HTML file
 const container = document.getElementById("root");
@@ -18,7 +19,9 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter basename="/gm_middleware_frontend">
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -70,7 +70,7 @@ const Sidebar = ({ setSelectedComponent }) => {
       {/* ✅ Sidebar Logo */}
       <div className="text-center mb-4">
         <img
-          src="/assets/dashbaord-logo.jpg"
+          src={`${process.env.PUBLIC_URL}/assets/dashbaord-logo.jpg`}
           className="img-fluid"
           alt="Logo"
         />

@@ -12,10 +12,10 @@ module.exports = {
   mode: "development",
   devServer: {
     static: {
-      directory: path.join(__dirname, "public"), // ✅ Serves static files from public/
+      directory: path.join(__dirname, "public"),
     },
     port: 3000,
-    historyApiFallback: true,
+    historyApiFallback: true, // ✅ Redirects all requests to index.html
   },
   module: {
     rules: [
@@ -44,6 +44,9 @@ module.exports = {
     extensions: [".js", ".jsx"],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [{ from: "public/assets", to: "assets" }],
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),

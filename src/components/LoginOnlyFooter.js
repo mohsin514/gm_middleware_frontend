@@ -7,7 +7,7 @@ const LoginOnlyFooter = () => {
         {/* Footer Logo */}
         <div style={styles.logoContainer}>
           <img
-            src="/assets/footer-logo.jpg"
+            src={`${process.env.PUBLIC_URL}/assets/footer-logo.jpg`}
             alt="NICE CXone"
             id="footer-logo-cxone"
             style={styles.logo}

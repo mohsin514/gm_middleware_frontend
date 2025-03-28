@@ -83,7 +83,7 @@ const LoginPage = () => {
               {/* Left Side - Image */}
               <div className="col-md-5 d-none d-md-block p-0">
                 <img
-                  src="/assets/gmLogo.jpg"
+                  src={`${process.env.PUBLIC_URL}/assets/gmLogo.jpg`}
                   alt="Login"
                   className="img-fluid h-100 w-100 object-fit-cover rounded-start"
                 />

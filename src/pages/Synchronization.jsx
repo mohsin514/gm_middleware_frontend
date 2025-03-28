@@ -6,19 +6,20 @@ import ErrorDetails from "./ErrorDetails";
 
 const SyncPopup = ({ show, onClose }) => {
   const steps = [
-    "Step 1: Validate Data",
-    "Step 2: Fetch Records",
-    "Step 3: Check Permissions",
-    "Step 4: Sync Users",
-    "Step 5: Sync Orders",
-    "Step 6: Sync Inventory",
-    "Step 7: Update Metadata",
-    "Step 8: Validate Sync Data",
-    "Step 9: Apply Business Rules",
-    "Step 10: Commit Transactions",
-    "Step 11: Final Verification",
-    "Step 12: Generate Reports",
-    "Step 13: Complete Sync",
+    "Step 1: Unavailable Codes",
+    "Step 2: Groups",
+    "Step 3: Teams",
+    "Step 4: Compaigns",
+    "Step 5: Dispositions",
+    "Step 6: Agents",
+    "Step 7: Routing Atrributes",
+    "Step 8: Scripts",
+    "Step 9: Skills",
+    "Step 10: Skills Agent Assignments",
+    "Step 11: Hours Of Operation",
+    "Step 12: Workflow Data",
+    "Step 13: Address Books",
+    "Step 14: Points Of Contact",
   ];
 
   const [selectedSteps, setSelectedSteps] = useState([]);
