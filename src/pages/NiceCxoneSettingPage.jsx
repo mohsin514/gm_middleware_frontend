@@ -10,30 +10,35 @@ const NiceCxoneSettingForm = () => {
   const settings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
 
+  const [inputValues, setInputValues] = useState({});
+  const [hasFocused, setHasFocused] = useState({}); // Track if field was focused before
   const [showSecrets, setShowSecrets] = useState({});
-  const [notification, setNotification] = useState("");
 
   const toggleSecret = (key) => {
     setShowSecrets((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const handleChange = (e, section, key) => {
-    dispatch(updateSettings({ key, value: e.target.value, section }));
+  const handleFocus = (key) => {
+    if (!hasFocused[key]) {
+      setInputValues((prev) => ({ ...prev, [key]: "" })); // Clear on first focus
+      setHasFocused((prev) => ({ ...prev, [key]: true }));
+    }
   };
 
-  const handleSave = () => {
-    setNotification("Settings have been saved successfully!");
-    setTimeout(() => setNotification(""), 3000);
+  const handleChange = (e, section, key) => {
+    const value = e.target.value;
+    setInputValues((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleBlur = (section, key) => {
+    if (inputValues[key] !== undefined) {
+      dispatch(updateSettings({ key, value: inputValues[key], section }));
+    }
   };
 
   return (
     <div className="container-fluid d-flex flex-column">
       <h2 className="mb-3 text-primary">NICE CXone Settings</h2>
-
-      {/* Success Notification */}
-      {notification && (
-        <div className="alert alert-success">{notification}</div>
-      )}
 
       <div className="row flex">
         {/* Primary Business Unit Settings */}
@@ -51,13 +56,19 @@ const NiceCxoneSettingForm = () => {
                   <div className="input-group">
                     <input
                       type={
-                        key.includes("Secret") && !showSecrets[key]
+                        key.includes("Secret") || key.includes("ClientId")
                           ? "password"
                           : "text"
                       }
                       className="form-control"
-                      value={value}
+                      value={
+                        inputValues[key] !== undefined
+                          ? inputValues[key]
+                          : value
+                      }
+                      onFocus={() => handleFocus(key)}
                       onChange={(e) => handleChange(e, "primarySettings", key)}
+                      onBlur={() => handleBlur("primarySettings", key)}
                     />
                     {key.includes("Secret") && (
                       <button
@@ -90,13 +101,19 @@ const NiceCxoneSettingForm = () => {
                   <div className="input-group">
                     <input
                       type={
-                        key.includes("Secret") && !showSecrets[key]
+                        key.includes("Secret") || key.includes("ClientId")
                           ? "password"
                           : "text"
                       }
                       className="form-control"
-                      value={value}
+                      value={
+                        inputValues[key] !== undefined
+                          ? inputValues[key]
+                          : value
+                      }
+                      onFocus={() => handleFocus(key)}
                       onChange={(e) => handleChange(e, "backupSettings", key)}
+                      onBlur={() => handleBlur("backupSettings", key)}
                     />
                     {key.includes("Secret") && (
                       <button
@@ -123,9 +140,7 @@ const NiceCxoneSettingForm = () => {
         >
           Cancel
         </button>
-        <button className="btn btn-success" onClick={handleSave}>
-          Save
-        </button>
+        <button className="btn btn-success">Save</button>
       </div>
     </div>
   );

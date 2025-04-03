@@ -9,10 +9,10 @@ const SyncPopup = ({ show, onClose }) => {
     "Step 1: Unavailable Codes",
     "Step 2: Groups",
     "Step 3: Teams",
-    "Step 4: Compaigns",
+    "Step 4: Campaigns",
     "Step 5: Dispositions",
     "Step 6: Agents",
-    "Step 7: Routing Atrributes",
+    "Step 7: Routing Attributes",
     "Step 8: Scripts",
     "Step 9: Skills",
     "Step 10: Skills Agent Assignments",
@@ -24,10 +24,13 @@ const SyncPopup = ({ show, onClose }) => {
 
   const [selectedSteps, setSelectedSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [syncCompleted, setSyncCompleted] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [downloadCompleted, setDownloadCompleted] = useState(false);
+  const [uploadCompleted, setUploadCompleted] = useState(false);
   const [error, setError] = useState(null);
   const [lastSyncDate, setLastSyncDate] = useState(null);
+  const [file, setFile] = useState(null);
 
   const handleCheck = (step) => {
     setSelectedSteps((prev) =>
@@ -39,28 +42,77 @@ const SyncPopup = ({ show, onClose }) => {
     setSelectedSteps(selectedSteps.length === steps.length ? [] : [...steps]);
   };
 
-  const handleRunJob = async () => {
-    setError(null);
-    setSyncCompleted(false);
+  const handleDownload = () => {
+    // Simulate PDF download
+    const link = document.createElement("a");
+    link.href = "data:application/pdf;base64,PDF_DATA_HERE"; // Replace with your PDF data
+    link.download = "sync_report.pdf";
+    link.click();
+  };
+
+  const handleUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
+      // Here you can implement the upload logic to send the file to the server
+    }
+  };
+
+  const handleDownloadProgress = async () => {
+    setDownloadCompleted(false);
+    setDownloadProgress(0);
     let completedSteps = 0;
 
     for (let step of selectedSteps) {
-      setCurrentStep(step);
+      setCurrentStep(`Syncing: ${step}`);
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API delay
       completedSteps++;
 
       if (Math.random() < 0.1) {
-        setError(`Error at "${step}"`);
+        setError(`Download failed at "${step}"`);
         setCurrentStep(null);
         return;
       }
 
-      setProgress(Math.round((completedSteps / selectedSteps.length) * 100));
+      setDownloadProgress(
+        Math.round((completedSteps / selectedSteps.length) * 100)
+      );
     }
 
+    setDownloadCompleted(true);
     setCurrentStep(null);
-    setSyncCompleted(true);
+  };
+
+  const handleUploadProgress = async () => {
+    if (!downloadCompleted) {
+      setError("Please complete the download before uploading.");
+      return;
+    }
+
+    setError(null);
+    setUploadCompleted(false);
+    setUploadProgress(0);
+    let completedSteps = 0;
+
+    for (let step of selectedSteps) {
+      setCurrentStep(`Uploading: ${step}`);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API delay
+      completedSteps++;
+
+      if (Math.random() < 0.1) {
+        setError(`Upload failed at "${step}"`);
+        setCurrentStep(null);
+        return;
+      }
+
+      setUploadProgress(
+        Math.round((completedSteps / selectedSteps.length) * 100)
+      );
+    }
+
+    setUploadCompleted(true);
     setLastSyncDate(new Date().toLocaleString());
+    setCurrentStep(null);
   };
 
   return (
@@ -89,18 +141,34 @@ const SyncPopup = ({ show, onClose }) => {
           ))}
         </Form>
 
-        {/* Progress Bar */}
-        {currentStep && (
+        {/* Progress Bar for Download */}
+        {currentStep && currentStep.includes("Syncing") && (
           <div className="mt-3">
-            <strong>Running:</strong> {currentStep}
-            <ProgressBar now={progress} label={`${progress}%`} animated />
+            <strong>{currentStep}</strong>
+            <ProgressBar
+              now={downloadProgress}
+              label={`${downloadProgress}%`}
+              animated
+            />
+          </div>
+        )}
+
+        {/* Progress Bar for Upload */}
+        {currentStep && currentStep.includes("Uploading") && (
+          <div className="mt-3">
+            <strong>{currentStep}</strong>
+            <ProgressBar
+              now={uploadProgress}
+              label={`${uploadProgress}%`}
+              animated
+            />
           </div>
         )}
 
         {/* Last Sync Date */}
-        {syncCompleted && lastSyncDate && (
+        {uploadCompleted && lastSyncDate && (
           <Alert variant="info" className="mt-3">
-            ✅ Sync completed successfully! <br />
+            ✅ Upload completed successfully! <br />
             Last Sync: {lastSyncDate}
           </Alert>
         )}
@@ -118,12 +186,31 @@ const SyncPopup = ({ show, onClose }) => {
           Close
         </Button>
         <Button
+          variant="primary"
+          onClick={handleDownload}
+          disabled={!downloadCompleted}
+        >
+          📥 Download PDF
+        </Button>
+        <Button
           variant="success"
-          onClick={handleRunJob}
+          onClick={handleDownloadProgress}
           disabled={selectedSteps.length === 0 || currentStep !== null}
         >
-          Run Job
+          🔄 Run Sync Job
         </Button>
+        <Button
+          variant="info"
+          onClick={() => document.getElementById("fileUpload").click()}
+        >
+          📤 Upload File
+        </Button>
+        <input
+          id="fileUpload"
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleUpload}
+        />
       </Modal.Footer>
     </Modal>
   );

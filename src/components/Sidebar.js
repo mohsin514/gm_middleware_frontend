@@ -68,10 +68,18 @@ const Sidebar = ({ setSelectedComponent }) => {
   return (
     <div className="d-flex flex-column bg-light vh-100 p-3 sidebar-container">
       {/* ✅ Sidebar Logo */}
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 position-relative">
         <img
           src={`${process.env.PUBLIC_URL}/assets/dashbaord-logo.jpg`}
           className="img-fluid"
+          alt="Logo"
+        />
+      </div>
+      <br />
+      <div className="text-center position-relative">
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/consulting-group.png`}
+          className="img-fluid consulting-logo"
           alt="Logo"
         />
       </div>
@@ -181,7 +189,7 @@ const Sidebar = ({ setSelectedComponent }) => {
           <FaCogs
             className={`me-2 ${isNiceCxoneFlashing ? "flash-animation" : ""}`}
           />
-          NICE Cxone Setting
+          NICE CXone Setting
         </Nav.Link>
         {/* ✅ Admin Section */}
         <Nav.Link

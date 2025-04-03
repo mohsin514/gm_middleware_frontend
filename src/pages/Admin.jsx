@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./admin.css";
+import "./Admin.css";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const Admin = () => {
     lastName: "",
     email: "",
     role: "View Only User",
+    authorizationMethod: "Local Authentication", // Default value
   });
 
   const [editing, setEditing] = useState(false);
@@ -73,43 +74,10 @@ const Admin = () => {
       lastName: "",
       email: "",
       role: "View Only User",
+      authorizationMethod: "Local Authentication",
     });
     setEditing(false);
     setShowForm(false);
-  };
-
-  // ✅ Confirm Delete User (Custom Alert)
-  const handleDelete = (id) => {
-    toast.error(
-      <div className="text-center">
-        <p className="fw-bold mb-3">Are you sure you want to delete?</p>
-        <div className="d-flex justify-content-center gap-3">
-          <button
-            className="btn btn-danger btn-sm rounded-3 px-4"
-            onClick={() => {
-              dispatch(deleteUser(id));
-              toast.dismiss();
-              toast.success("User deleted successfully!");
-            }}
-          >
-            Confirm
-          </button>
-          <button
-            className="btn btn-secondary btn-sm rounded-3 px-4"
-            onClick={() => toast.dismiss()}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>,
-      {
-        position: "top-center",
-        autoClose: false,
-        closeOnClick: false,
-        draggable: false,
-        closeButton: false,
-      }
-    );
   };
 
   return (
@@ -152,6 +120,7 @@ const Admin = () => {
                   <th>Last Name</th>
                   <th>Email Address</th>
                   <th>Role</th>
+                  <th>Authorization Method</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -169,6 +138,7 @@ const Admin = () => {
                         <td>{user.lastName}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
+                        <td>{user.authorizationMethod}</td>
                         <td>
                           <button
                             className="btn btn-outline-primary btn-sm me-2"
@@ -178,7 +148,7 @@ const Admin = () => {
                           </button>
                           <button
                             className="btn btn-outline-danger btn-sm"
-                            onClick={() => handleDelete(user.id)}
+                            onClick={() => dispatch(deleteUser(user.id))}
                           >
                             <FaTrash />
                           </button>
@@ -187,7 +157,7 @@ const Admin = () => {
                     ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="text-center text-muted">
+                    <td colSpan="6" className="text-center text-muted">
                       No users found. Add users to get started.
                     </td>
                   </tr>
@@ -208,7 +178,7 @@ const Admin = () => {
         </>
       )}
 
-      {/* ✅ User Form (Full Width) */}
+      {/* ✅ User Form */}
       {showForm && (
         <div className="mt-4">
           <h5 className="fw-bold">{editing ? "Edit User" : "Add New User"}</h5>
@@ -270,21 +240,31 @@ const Admin = () => {
               </select>
             </div>
 
-            <hr className="border-secondary mt-5" />
-
-            {/* ✅ Buttons */}
-            <div className="d-flex justify-content-end">
-              <button type="submit" className="btn btn-success me-2">
-                {editing ? "Update User" : "Add User"}
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={resetForm}
+            <div className="mb-3">
+              <label className="form-label fw-bold">Authorization Method</label>
+              <select
+                name="authorizationMethod"
+                className="form-select"
+                value={userData.authorizationMethod}
+                onChange={handleChange}
               >
-                Cancel
-              </button>
+                <option value="Local Authentication">
+                  Local Authentication
+                </option>
+                <option value="Single Sign-On">Single Sign-On</option>
+              </select>
             </div>
+
+            <button type="submit" className="btn btn-success me-2">
+              {editing ? "Update User" : "Add User"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={resetForm}
+            >
+              Cancel
+            </button>
           </form>
         </div>
       )}

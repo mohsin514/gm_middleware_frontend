@@ -149,3 +149,18 @@
 .flash-animation {
     animation: flash 0.5s linear 4;
 }
+.position-relative {
+    display: inline-block;
+}
+
+.sidebar-container {
+    position: relative;
+}
+
+.consulting-logo {
+    position: absolute;
+        bottom: -15px;
+        right: -6px;
+        width: 100px;
+        height: auto;
+}

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../redux/userSettingsSlice";
-import { FaUser, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
+import { FaUser, FaCheck, FaTimes } from "react-icons/fa";
 import { Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { firstName, lastName, email } = useSelector(
+  const { firstName, lastName, email, role } = useSelector(
     (state) => state.userSettings
   );
 
@@ -20,6 +20,7 @@ const Profile = () => {
     title: "Product Manager",
     language: "English",
     dateFormat: "DD-MM-YYYY",
+    timezone: "UTC",
   });
 
   const [autoTimezone, setAutoTimezone] = useState(true);
@@ -64,7 +65,15 @@ const Profile = () => {
 
           <div className="row">
             <div className="col-md-6 fw-bold">Email Address</div>
-            <div className="col-md-6 text-muted">{profileData.email}</div>
+            <div className="col-md-6 text-muted">
+              {profileData.email}{" "}
+              <button
+                className="btn btn-link p-0 text-primary"
+                onClick={() => setEditMode(true)}
+              >
+                Update
+              </button>
+            </div>
           </div>
           <hr className="border-1 border-secondary" />
 
@@ -103,20 +112,7 @@ const Profile = () => {
           </div>
           <hr className="border-1 border-secondary" />
 
-          <div className="row">
-            <div className="col-md-6 fw-bold">Date Format</div>
-            <div className="col-md-6 text-muted">
-              {profileData.dateFormat}{" "}
-              <button
-                className="btn btn-link p-0 text-primary"
-                onClick={() => setEditMode(true)}
-              >
-                Update
-              </button>
-            </div>
-          </div>
-          <hr className="border-1 border-secondary" />
-
+          {/* ✅ Auto Timezone Toggle & Dropdown */}
           <div className="row">
             <div className="col-md-6 fw-bold">Automatic Timezone</div>
             <div className="col-md-6">
@@ -127,6 +123,26 @@ const Profile = () => {
               />
             </div>
           </div>
+
+          {/* ✅ Always Visible Timezone Dropdown (Disabled when Auto) */}
+          <div className="row mt-3">
+            <div className="col-md-6 fw-bold">Timezone</div>
+            <div className="col-md-6">
+              <select
+                name="timezone"
+                className="form-select"
+                value={profileData.timezone}
+                onChange={handleChange}
+                disabled={autoTimezone}
+              >
+                <option value="UTC">UTC</option>
+                <option value="America/New_York">New York (EST)</option>
+                <option value="Europe/London">London (GMT)</option>
+                <option value="Asia/Karachi">Karachi (PKT)</option>
+              </select>
+            </div>
+          </div>
+
           <hr className="border-1 border-secondary" />
         </>
       ) : (
@@ -158,25 +174,17 @@ const Profile = () => {
               />
             </div>
 
+            {/* ✅ Allow Anyone to Edit Email */}
             <div className="mb-3">
-              <label className="form-label fw-bold">Title</label>
+              <label className="form-label fw-bold">Email Address</label>
               <input
-                type="text"
-                name="title"
+                type="email"
+                name="email"
                 className="form-control"
-                value={profileData.title}
+                value={profileData.email}
                 onChange={handleChange}
               />
             </div>
-
-            <hr className="border-secondary" />
-
-            <h5 className="fw-bold mt-4">Languages & Dates</h5>
-            <p className="text-muted small">
-              Choose what language and date format to use throughout your
-              account.
-            </p>
-            <hr className="border-2 border-dark" />
 
             <div className="mb-3">
               <label className="form-label fw-bold">Language</label>
@@ -192,21 +200,7 @@ const Profile = () => {
               </select>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label fw-bold">Date Format</label>
-              <select
-                name="dateFormat"
-                className="form-select"
-                value={profileData.dateFormat}
-                onChange={handleChange}
-              >
-                <option value="DD-MM-YYYY">DD-MM-YYYY</option>
-                <option value="MM-DD-YYYY">MM-DD-YYYY</option>
-              </select>
-            </div>
-
-            <hr className="border-secondary" />
-
+            {/* ✅ Auto Timezone Toggle */}
             <div className="row">
               <div className="col-md-6 fw-bold">Automatic Timezone</div>
               <div className="col-md-6">
@@ -217,7 +211,23 @@ const Profile = () => {
                 />
               </div>
             </div>
-            <hr className="border-secondary" />
+
+            {/* ✅ Timezone Dropdown (Always Visible, Disabled if Auto) */}
+            <div className="mb-3 mt-3">
+              <label className="form-label fw-bold">Timezone</label>
+              <select
+                name="timezone"
+                className="form-select"
+                value={profileData.timezone}
+                onChange={handleChange}
+                disabled={autoTimezone}
+              >
+                <option value="UTC">UTC</option>
+                <option value="America/New_York">New York (EST)</option>
+                <option value="Europe/London">(PST)</option>
+                <option value="Europe/London">(AKST)</option>
+              </select>
+            </div>
 
             <div className="d-flex justify-content-end">
               <button className="btn btn-success me-2" onClick={handleSave}>
